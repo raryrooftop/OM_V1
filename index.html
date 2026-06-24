@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>재활치료센터 조직계층 개편 및 다면 역량평가 시스템 도입 제안</title>
+<link rel="stylesheet" as="style" crossorigin
+ href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --primary:#8dc21f; --primary-hover:#7cab18; --primary-text:#5a7d14; --primary-deep:#4d6b11;
+  --on-primary:#172403; --tint:#F4F9EB; --tint2:#E9F2D6;
+  --ink:#172403; --ink-sub:#5b6657; --ink-muted:#8a9483;
+  --page:#F7F8F5; --card:#FFFFFF; --line:#E3E8DC; --line-strong:#CBD3BF;
+  --success:#3a5a0d; --success-tint:#EEF5DE;
+}
+*{box-sizing:border-box;}
+body{
+  font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:var(--ink); background:var(--page); margin:0; line-height:1.65;
+  letter-spacing:-0.01em; font-size:15px;
+}
+.wrap{max-width:880px; margin:0 auto; background:var(--card); min-height:100vh;
+  box-shadow:0 1px 24px rgba(23,36,3,.07);}
+
+/* 표지 */
+.cover{background:linear-gradient(135deg,#172403 0%,#2c3d12 55%,#3f5417 100%);
+  color:#fff; padding:64px 56px 56px; position:relative; overflow:hidden;}
+.cover::after{content:""; position:absolute; right:-60px; top:-60px; width:240px; height:240px;
+  background:var(--primary); opacity:.16; border-radius:50%;}
+.cover .badge{display:inline-block; background:var(--primary); color:var(--on-primary);
+  font-size:12.5px; font-weight:700; padding:5px 13px; border-radius:20px; margin-bottom:22px;}
+.cover h1{font-size:30px; font-weight:800; line-height:1.35; margin:0 0 14px; letter-spacing:-0.02em;}
+.cover .sub{font-size:15px; color:#d8e6c0; margin:0 0 30px; font-weight:500;}
+.cover .meta{font-size:13px; color:#b9cda0; border-top:1px solid rgba(255,255,255,.18); padding-top:16px;}
+.cover .meta b{color:#fff;}
+
+.body{padding:44px 56px 64px;}
+
+/* 섹션 */
+h2.sec{font-size:21px; font-weight:800; color:var(--ink); margin:42px 0 16px;
+  padding-bottom:10px; border-bottom:2.5px solid var(--primary); display:flex; align-items:center; gap:10px;}
+h2.sec .n{background:var(--primary); color:var(--on-primary); font-size:14px; font-weight:800;
+  width:28px; height:28px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; flex:none;}
+h3.sub{font-size:16.5px; font-weight:700; color:var(--primary-deep); margin:26px 0 10px;}
+h4.subsub{font-size:14.5px; font-weight:700; color:var(--ink); margin:18px 0 8px;}
+p{margin:10px 0;}
+.lead{font-size:15.5px;}
+.lead b, strong{color:var(--ink); font-weight:700;}
+.muted{color:var(--ink-sub); font-size:13.5px;}
+
+/* 콜아웃 */
+.callout{background:var(--tint); border-left:4px solid var(--primary); border-radius:0 8px 8px 0;
+  padding:14px 18px; margin:16px 0; font-size:14px; color:var(--ink);}
+.callout.req{background:#F0F4FF; border-left-color:#3a5a8a;}
+
+/* 표 */
+table.t{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px;}
+table.t th,table.t td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+table.t th{background:var(--tint); color:var(--ink); font-weight:700;}
+table.t td.c,table.t th.c{text-align:center;}
+table.t tr:nth-child(even) td{background:#FBFCF9;}
+table.t .grp{background:var(--tint2); font-weight:700;}
+
+/* 카드 그리드 */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin:16px 0;}
+.cardx{border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:var(--card);}
+.cardx .ic{width:34px; height:34px; border-radius:9px; background:var(--tint); color:var(--primary-deep);
+  display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; margin-bottom:10px;}
+.cardx b{display:block; font-size:14.5px; margin-bottom:4px;}
+.cardx span{font-size:13px; color:var(--ink-sub);}
+
+/* 코드/공식 */
+.formula{background:#172403; color:#E9F2D6; font-family:"D2Coding",ui-monospace,monospace;
+  font-size:13.5px; padding:14px 18px; border-radius:10px; margin:14px 0; text-align:center; letter-spacing:0;}
+.formula b{color:var(--primary);}
+
+/* 부록 행동기준 */
+.dim{border:1px solid var(--line); border-radius:10px; margin:14px 0; overflow:hidden; break-inside:avoid;}
+.dim-h{background:var(--tint); padding:10px 14px; display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;
+  border-bottom:1px solid var(--line);}
+.dim-no{background:var(--ink); color:#fff; font-weight:800; font-size:12px; width:22px; height:22px;
+  border-radius:50%; display:inline-flex; align-items:center; justify-content:center; flex:none;}
+.dim-h b{font-size:14.5px; color:var(--ink);}
+.dim-def{font-size:12.5px; color:var(--ink-sub);}
+table.anc{width:100%; border-collapse:collapse;}
+table.anc td{padding:7px 14px; font-size:13px; border-bottom:1px solid #EEF1EA; vertical-align:top;}
+table.anc tr:last-child td{border-bottom:none;}
+table.anc td.sc{width:96px; font-weight:700; font-size:12.5px; white-space:nowrap;}
+tr.hi td.sc{color:var(--primary-deep);}
+tr.mid td.sc{color:var(--ink-sub);}
+tr.lo td.sc{color:var(--ink-muted);}
+tr.hi{background:#FBFDF6;}
+
+/* 등급 배지 */
+.grade{display:inline-block; font-weight:700; font-size:12px; padding:2px 9px; border-radius:5px;}
+.gS{background:var(--tint2); color:var(--primary-deep);}
+.gA{background:var(--tint); color:var(--primary-text);}
+.gB{background:#EFF1EC; color:var(--ink);}
+.gC{background:#F0F1ED; color:var(--ink-sub);}
+.gD{background:#EDEEEA; color:var(--ink-muted);}
+
+.toc{background:#FBFCF9; border:1px solid var(--line); border-radius:12px; padding:20px 26px; margin:24px 0;}
+.toc b{font-size:14px; color:var(--primary-deep); display:block; margin-bottom:10px;}
+.toc ol{margin:0; padding-left:20px; columns:2; font-size:13.5px; line-height:2;}
+
+hr.div{border:none; border-top:1px solid var(--line); margin:36px 0;}
+
+.toolbar{position:fixed; right:18px; bottom:18px; z-index:50;}
+.btn{font-family:inherit; font-weight:700; font-size:13.5px; padding:11px 18px; border:none;
+  border-radius:24px; cursor:pointer; background:var(--primary); color:var(--on-primary);
+  box-shadow:0 3px 12px rgba(23,36,3,.22);}
+
+@media print{
+  body{background:#fff;} .wrap{box-shadow:none; max-width:none;}
+  .toolbar{display:none;} .body{padding:0 6mm;}
+  .cover{padding:40px;} .dim,.cardx,table.t,.callout{break-inside:avoid;}
+  h2.sec{break-after:avoid;} @page{size:A4; margin:14mm;}
+}
+@media(max-width:640px){
+  .cover{padding:40px 28px;} .body{padding:32px 24px;} .toc ol{columns:1;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 표지 -->
+  <div class="cover">
+    <span class="badge">경영진·원장 결재용 제안서</span>
+    <h1>재활치료센터 조직계층 개편 및<br>다면 역량평가 시스템 도입 제안</h1>
+    <p class="sub">직급·직책 분리를 통한 성장 경로 마련과 공정한 다면평가 체계 구축</p>
+    <div class="meta">작성: 재활치료센터 &nbsp;·&nbsp; 문서 버전: <b>1.0</b> &nbsp;·&nbsp; 구분: 내부 결재용</div>
+  </div>
+
+  <div class="body">
+
+    <!-- 목차 -->
+    <div class="toc">
+      <b>목차</b>
+      <ol>
+        <li>제안 요지</li>
+        <li>추진 배경 및 필요성</li>
+        <li>제안 1 — 직급·직책 분리 조직계층</li>
+        <li>제안 2 — 다면 역량평가 시스템</li>
+        <li>기대 효과</li>
+        <li>추진 일정</li>
+        <li>고려 사항 및 리스크</li>
+        <li>결재 요청 사항</li>
+        <li>부록 — 평가 차원별 행동기준 전문</li>
+      </ol>
+    </div>
+
+    <!-- 1 -->
+    <h2 class="sec"><span class="n">1</span>제안 요지</h2>
+    <p class="lead">재활치료센터의 지속적 성장을 위해 두 가지를 함께 추진하고자 합니다. 첫째, <b>직급과 직책이 혼재된 현 인사 구조를 분리·정비</b>하여 역량 기반 성장 경로를 마련합니다. 둘째, <b>자기·동료·상향·상급자 평가를 합산하는 다면 역량평가 시스템을 웹 기반으로 도입</b>하여 평가의 공정성과 인사 활용도를 높입니다.</p>
+    <p>두 과제는 “역량을 명확히 정의하고(조직계층), 객관적으로 측정하여(다면평가), 성장으로 연결한다”는 하나의 목표로 이어집니다.</p>
+    <div class="callout req"><b>승인 요청 사항</b> — ① 직급·직책 분리 체계의 도입, ② 다면 역량평가 시스템의 단계적 구축, ③ 추진 일정과 자원의 배정</div>
+
+    <!-- 2 -->
+    <h2 class="sec"><span class="n">2</span>추진 배경 및 필요성</h2>
+    <h3 class="sub">현행 인사 구조의 한계</h3>
+    <p>현재 센터는 공식 평가도구가 없어 승진·보임·육성의 객관적 근거가 부족합니다. 또한 직급(연차 기반 등급)과 직책(관리 보직)이 한 줄로 혼재되어, 평가 기준이 직급·직책에 따라 달라야 함에도 이를 반영하지 못합니다.</p>
+    <h3 class="sub">성장 경로의 부재</h3>
+    <p>우수한 치료사가 관리직 외에 성장 경로가 없으면 임상 전문성을 갖춘 인력이 동기를 잃거나 이탈할 수 있으며, 이는 회복기 재활의료기관의 핵심 자산인 숙련 치료 인력의 손실로 이어집니다.</p>
+    <h3 class="sub">평가의 신뢰성 문제</h3>
+    <p>한 사람의 역량은 상급자만으로 온전히 평가되지 않습니다. 협업·태도는 동료가, 리더십은 관리받는 팀원이 더 정확히 봅니다. 단일 평가자 방식은 편향에 취약하여 결과를 인사에 활용하기 어렵습니다.</p>
+
+    <!-- 3 -->
+    <h2 class="sec"><span class="n">3</span>제안 1 — 직급·직책 분리 조직계층</h2>
+    <h3 class="sub">3-1. 기본 방향</h3>
+    <p>직급(개인 역량 등급)과 직책(조직 관리 보직)을 분리합니다. 직급은 모든 구성원이 갖는 자격 등급, 직책은 조직 필요에 따라 부여되는 보직입니다. 이를 분리하면 <b>“직책 없이 전문가로 성장하는 경로”와 “관리자로 성장하는 경로”를 동시에 운영</b>할 수 있습니다.</p>
+
+    <h3 class="sub">3-2. 직급 체계 (팀원 3단계)</h3>
+    <table class="t">
+      <thead><tr><th style="width:160px">직급</th><th style="width:150px">연차 기준</th><th>핵심 역할</th></tr></thead>
+      <tbody>
+        <tr><td><b>치료사</b></td><td>1~2년차</td><td>기본 실무 수행</td></tr>
+        <tr><td><b>선임치료사</b></td><td>3~4년차</td><td>독립적 케이스 관리</td></tr>
+        <tr><td><b>책임치료사</b></td><td>5년차 이상</td><td>복합 케이스·후배 지도</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub">3-3. 직책 체계 (관리 보직 3단계)</h3>
+    <table class="t">
+      <thead><tr><th style="width:160px">직책</th><th>관리 범위</th><th style="width:170px">기존 명칭</th></tr></thead>
+      <tbody>
+        <tr><td><b>팀매니저</b></td><td>1개 팀(약 10명 내외)</td><td>부팀장/팀장</td></tr>
+        <tr><td><b>파트매니저</b></td><td>1개 파트(복수 팀)</td><td>실장/파트장</td></tr>
+        <tr><td><b>시니어매니저</b></td><td>센터 전체 총괄·인사</td><td>차장/센터장</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub">3-4. 기대 효과</h3>
+    <p>직급-직책 분리로 “책임치료사이면서 팀매니저” 같은 유연한 운영이 가능해지고, 승진 적체로 인한 직급 인플레이션을 억제할 수 있습니다. 무엇보다 우수 임상가가 관리직으로 가지 않아도 전문가로 인정·성장할 수 있어 숙련 인력 유지에 기여합니다.</p>
+
+    <!-- 4 -->
+    <h2 class="sec"><span class="n">4</span>제안 2 — 다면 역량평가 시스템</h2>
+
+    <h3 class="sub">4-1. 평가 척도 — BARS 5점</h3>
+    <p>회복기 재활의료기관 현장 행동을 기준으로 한 <b>행위기준평정척도(BARS)</b>를 사용합니다. 각 점수에 구체적 행동 예시(앵커)가 달려 평가자의 자의적 해석을 줄입니다.</p>
+    <table class="t">
+      <thead><tr><th class="c" style="width:80px">점수</th><th style="width:130px">등급</th><th>의미</th></tr></thead>
+      <tbody>
+        <tr><td class="c"><b>5</b></td><td>탁월</td><td>기대를 크게 넘어섬. 타의 모범이 되고 개선·확산을 주도</td></tr>
+        <tr><td class="c"><b>4</b></td><td>우수</td><td>기대를 넘어섬. 안정적·일관되게 높은 수준 수행</td></tr>
+        <tr><td class="c"><b>3</b></td><td>기대충족</td><td>직급에 기대되는 표준 수준을 충족</td></tr>
+        <tr><td class="c"><b>2</b></td><td>향상 기대</td><td>표준에 다소 못 미쳐 보완이 필요</td></tr>
+        <tr><td class="c"><b>1</b></td><td>성장 필요</td><td>표준에 크게 못 미쳐 집중 지원이 필요</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">※ 2·1점 명칭은 거부감을 줄이기 위해 기존 “개선필요·미흡”에서 성장 지향 표현으로 순화하였습니다.</p>
+
+    <h3 class="sub">4-2. 평가 차원 — 16개 (공통 4 / 직무 7 / 리더십 5)</h3>
+    <p>평가 영역은 세 역량군으로 구성됩니다. 공통·직무역량은 전 구성원, 리더십역량은 직책자만 평가합니다. <b>각 차원의 5점~1점 행동기준 전문은 부록(9장)에 수록</b>합니다.</p>
+    <div class="cards">
+      <div class="cardx"><div class="ic">공통</div><b>공통역량 · 4개</b><span>성실·직업윤리, 환자중심, 의사소통, 협업·팀워크</span></div>
+      <div class="cardx"><div class="ic">직무</div><b>직무역량 · 7개</b><span>환자 평가·기능검사, 치료계획, 치료 수행, 환자교육, 환자안전, 기록·청구, 자기개발</span></div>
+      <div class="cardx"><div class="ic">리더</div><b>리더십역량 · 5개</b><span>코칭·육성, 성과·업무관리, 갈등관리, 의사결정, 자원·운영관리 (직책자)</span></div>
+    </div>
+
+    <h3 class="sub">4-3. 다면 평가자 구성</h3>
+    <p>평가 주체는 본인·동료·팀원(상향)·상급자이며, 피평가자 유형에 따라 평가자가 달라집니다.</p>
+    <table class="t">
+      <thead><tr><th style="width:150px">피평가자</th><th>동료(횡적)</th><th style="width:110px">팀원(상향)</th><th style="width:140px">상급자</th></tr></thead>
+      <tbody>
+        <tr><td><b>일반 치료사</b></td><td>같은 팀 동료</td><td class="c">—</td><td>직속 팀매니저</td></tr>
+        <tr><td><b>팀매니저</b></td><td>같은 파트 타 팀매니저</td><td class="c">본인 팀원</td><td>파트매니저</td></tr>
+        <tr><td><b>파트매니저</b></td><td>타 파트매니저</td><td class="c">파트 구성원</td><td>시니어매니저</td></tr>
+        <tr><td><b>언어재활 치료사</b></td><td>교차동료(성인물리·작업 각 5명) + 타파트 팀매니저</td><td class="c">—</td><td>언어 매니저/시니어매니저</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">인원이 2명인 언어재활파트는 내부 동료가 없어, 다학제 협업에서 관찰 가능한 <b>공통역량만</b> 타 파트 치료사·팀매니저가 교차 평가합니다. 전문 술기(직무역량)는 타 직종이 판정할 수 없으므로 상급자가 전담합니다.</div>
+
+    <h3 class="sub">4-4. 점수 산정 방식 — 2단계 가중</h3>
+    <p><b>핵심 원칙:</b> 자기평가는 점수에 반영하지 않습니다(자기-타인 격차 확인용). “누가 무엇을 가장 잘 보는가”에 따라 평가자 비중을 역량군마다 다르게 둡니다.</p>
+    <h4 class="subsub">1단계 — 역량군 점수 (평가자 가중)</h4>
+    <div class="formula">역량군 점수 = Σ ( 평가자 유형 평균 <b>×</b> 평가자 비중 )</div>
+    <table class="t">
+      <thead><tr><th style="width:130px">대상</th><th>역량군</th><th class="c">동료</th><th class="c">팀원(상향)</th><th class="c">상급자</th></tr></thead>
+      <tbody>
+        <tr><td class="grp" rowspan="2"><b>일반 치료사</b></td><td>공통역량</td><td class="c">50%</td><td class="c">—</td><td class="c">50%</td></tr>
+        <tr><td>직무역량</td><td class="c">25%</td><td class="c">—</td><td class="c">75%</td></tr>
+        <tr><td class="grp" rowspan="3"><b>직책자</b></td><td>공통역량</td><td class="c">30%</td><td class="c">20%</td><td class="c">50%</td></tr>
+        <tr><td>직무역량</td><td class="c">20%</td><td class="c">—</td><td class="c">80%</td></tr>
+        <tr><td>리더십역량</td><td class="c">—</td><td class="c">55%</td><td class="c">45%</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">※ 언어재활 치료사(특례): 공통역량은 교차동료 50% + 타파트 팀매니저 20% + 상급자 30%, 직무역량(ST)은 상급자 100%.</p>
+    <p class="muted">협업·태도(공통)는 동료가 가장 정확히 보고, 임상 전문성(직무)은 상급자 판단이 신뢰도가 높으며, 리더십은 관리받는 팀원의 상향평가가 핵심 데이터이기 때문입니다.</p>
+
+    <h4 class="subsub">2단계 — 종합 점수 (트랙별 역량군 가중)</h4>
+    <div class="formula">종합점수 = 공통점수×공통가중 <b>+</b> 직무점수×직무가중 <b>+</b> 리더십점수×리더십가중</div>
+    <table class="t">
+      <thead><tr><th>트랙</th><th class="c">공통</th><th class="c">직무</th><th class="c">리더십</th></tr></thead>
+      <tbody>
+        <tr><td>실무트랙 (치료사·선임치료사)</td><td class="c">30%</td><td class="c">70%</td><td class="c">—</td></tr>
+        <tr><td>전문가트랙 (책임치료사)</td><td class="c">25%</td><td class="c">75%</td><td class="c">—</td></tr>
+        <tr><td>관리트랙 (직책 보유자)</td><td class="c">15%</td><td class="c">25%</td><td class="c">60%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>계산 예시</b> — 팀매니저가 공통 3.71 · 직무 3.90 · 리더십 3.69를 받으면, 종합점수 = 3.71×0.15 + 3.90×0.25 + 3.69×0.60 ≈ <b>3.75 → A등급</b>.</div>
+
+    <h3 class="sub">4-5. 등급 환산</h3>
+    <table class="t">
+      <thead><tr><th class="c" style="width:200px">종합점수</th><th>등급</th></tr></thead>
+      <tbody>
+        <tr><td class="c">4.5 이상</td><td><span class="grade gS">S</span> 탁월</td></tr>
+        <tr><td class="c">3.5 ~ 4.49</td><td><span class="grade gA">A</span> 우수</td></tr>
+        <tr><td class="c">2.5 ~ 3.49</td><td><span class="grade gB">B</span> 기대충족</td></tr>
+        <tr><td class="c">1.5 ~ 2.49</td><td><span class="grade gC">C</span> 향상 기대</td></tr>
+        <tr><td class="c">1.0 ~ 1.49</td><td><span class="grade gD">D</span> 성장 필요</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub">4-6. 근거·메모 및 공정성 장치</h3>
+    <table class="t">
+      <thead><tr><th style="width:150px">장치</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><b>근거 의무화</b></td><td>표준에서 벗어난 점수(1·2·4·5점)는 근거·메모 필수 입력. 1·2점은 개선 방향, 4·5점은 구체적 행동 사례를 기재</td></tr>
+        <tr><td><b>익명 처리</b></td><td>동료·상향평가는 익명으로 처리하여 솔직한 평가를 유도</td></tr>
+        <tr><td><b>절사평균</b></td><td>동료가 5명 이상이면 최고·최저를 제외한 평균을 사용해 극단값 제거</td></tr>
+        <tr><td><b>소표본 마스킹</b></td><td>평가자가 3명 미만인 유형은 점수를 산출하지 않아 익명성 보호</td></tr>
+        <tr><td><b>회수율 기준</b></td><td>지정 평가자의 60% 이상이 제출해야 해당 점수를 유효 처리</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub">4-7. 시스템 구성</h3>
+    <p>웹 기반으로 매년 평가 차수를 열어 운영하며, 주요 화면은 ① 평가 수행(평가자용 할 일 목록) ② 자기평가·결과 확인(피평가자용, 유형별 격차) ③ 시니어매니저 대시보드(인사용, 유형별 분리·연도 추이) ④ 차수·배정 관리(운영용)로 구성됩니다. 결과 공개는 면담과 연계하여 진행합니다.</p>
+
+    <!-- 5 -->
+    <h2 class="sec"><span class="n">5</span>기대 효과</h2>
+    <table class="t">
+      <thead><tr><th style="width:150px">구분</th><th>기대 효과</th></tr></thead>
+      <tbody>
+        <tr><td><b>공정성</b></td><td>행위기준(BARS)과 다면평가로 평가자 편향을 줄여 인사 신뢰도 향상</td></tr>
+        <tr><td><b>인력 유지</b></td><td>전문가 트랙으로 숙련 치료사가 관리직 없이도 성장·인정받는 경로 확보</td></tr>
+        <tr><td><b>육성 연계</b></td><td>자기-타인 평가 격차를 개인별 개발계획(IDP)으로 연결</td></tr>
+        <tr><td><b>데이터 기반 인사</b></td><td>연도별 결과 축적으로 승진·보임·교육의 객관적 근거 마련</td></tr>
+        <tr><td><b>조직 효율</b></td><td>직급-직책 분리로 유연한 인사 운영과 직급 인플레이션 억제</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 6 -->
+    <h2 class="sec"><span class="n">6</span>추진 일정 (단계적 도입)</h2>
+    <p>평가 문화가 정착되기 전에 동료·상향평가를 승진에 강하게 연동하면 부작용이 생길 수 있어 단계적으로 도입합니다.</p>
+    <table class="t">
+      <thead><tr><th class="c" style="width:90px">단계</th><th>주요 내용</th><th style="width:180px">비고</th></tr></thead>
+      <tbody>
+        <tr><td class="c"><b>1단계</b></td><td>조직계층 개편(직급-직책 분리) 확정·공지 / 평가 시스템 설계</td><td>명칭·체계 정비</td></tr>
+        <tr><td class="c"><b>2단계</b></td><td>자기 + 상급자 2원 평가로 시범 운영</td><td>평가 문화 형성</td></tr>
+        <tr><td class="c"><b>3단계</b></td><td>공통역량에 동료평가 추가</td><td>협업·태도부터 다면 적용</td></tr>
+        <tr><td class="c"><b>4단계</b></td><td>직무·리더십 확대, 상향평가 도입, 승진 연계</td><td>전면 다면평가</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 7 -->
+    <h2 class="sec"><span class="n">7</span>고려 사항 및 리스크</h2>
+    <div class="cards">
+      <div class="cardx"><div class="ic">!</div><b>익명성 보호</b><span>인원이 적은 파트는 점수 역산 위험이 있어 소표본 마스킹을 적용합니다.</span></div>
+      <div class="cardx"><div class="ic">!</div><b>정서적 수용성</b><span>낮은 평가의 맥락 없는 통보를 막기 위해 결과 공개를 면담과 연계하고 등급 명칭을 순화합니다.</span></div>
+      <div class="cardx"><div class="ic">!</div><b>개인정보 보안</b><span>민감 인사정보이므로 권한을 역할별로 관리하고 평가자-점수 연결을 분리 저장합니다.</span></div>
+      <div class="cardx"><div class="ic">!</div><b>단계적 신뢰 구축</b><span>초기에는 육성 중심으로 활용하고 승진 연계는 신뢰가 쌓인 뒤 확대합니다.</span></div>
+    </div>
+
+    <!-- 8 -->
+    <h2 class="sec"><span class="n">8</span>결재 요청 사항</h2>
+    <div class="callout req">
+      <p style="margin:4px 0"><b>첫째.</b> 직급·직책 분리 조직계층 체계의 도입과 직책 명칭(팀매니저·파트매니저·시니어매니저) 변경</p>
+      <p style="margin:4px 0"><b>둘째.</b> 다면 역량평가 시스템의 단계적 구축</p>
+      <p style="margin:4px 0"><b>셋째.</b> 추진을 위한 일정 및 필요 자원의 배정</p>
+    </div>
+
+    <hr class="div">
+
+    <!-- 9 부록 -->
+    <h2 class="sec"><span class="n">9</span>부록 — 평가 차원별 행동기준 전문</h2>
+    <p>본 부록은 시스템에 탑재되는 16개 차원의 5점~1점 행동기준(앵커) 전문입니다. <b>1·2·4·5점 선택 시 근거·메모 입력이 필수</b>(최소 10자)이며, 3점은 선택입니다.</p>
+
+    <h3 class="sub">A. 공통역량 (전 구성원 · 4개 차원)</h3>
+    <div class="dim"><div class="dim-h"><span class="dim-no">1</span><b>성실·직업윤리</b><span class="dim-def">치료 성실 수행, 환자 정보보호, 근태·직업윤리 준수</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>맡은 환자의 치료 시간·횟수를 빠짐없이 채우고, 환자 정보와 진료내용을 철저히 지키며, 비협조적이거나 까다로운 환자도 끝까지 책임지고 동료에게 본이 된다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>치료 시간·횟수를 성실히 지키고, 환자 정보보호와 동의 절차를 한결같이 지킨다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>정해진 치료 일정과 기본 직업윤리(정보보호·환자 존중)를 지킨다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>치료 누락·지각이나 정보 관리에서 가끔 주의가 필요하다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>무단 치료 누락이나 환자 정보 부주의 등 기본이 반복적으로 지켜지지 않는다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">2</span><b>환자중심 치료</b><span class="dim-def">환자의 회복 목표·생활여건을 고려해 치료에 반영</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>환자의 회복 목표와 퇴원 후 생활(재택복귀·시설 등)을 환자·보호자와 함께 정하고, 체력·인지·집안 환경까지 고려해 치료를 맞춰 간다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>환자·보호자의 바람과 생활여건을 파악해 치료에 반영한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>환자의 요구를 듣고 무리 없는 선에서 치료에 반영한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>정해진 프로그램대로만 진행해 환자 사정 반영이 부족하다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>환자가 무엇을 원하는지, 어떤 형편인지 거의 고려하지 않는다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">3</span><b>의사소통</b><span class="dim-def">환자·보호자·동료·타 직종과의 원활한 소통</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>환자·보호자에게 회복 정도와 주의사항을 알아듣기 쉽게 설명하고, 의사·간호·타 치료실과도 환자 상태를 막힘없이 주고받는다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>환자·보호자, 동료와 필요한 내용을 분명하고 정중하게 주고받는다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>업무에 필요한 의사소통을 무리 없이 한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>설명이 불분명하거나 인계가 부실해 오해·재확인이 잦다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>의사소통 문제로 환자 혼선이나 업무 차질이 반복된다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">4</span><b>협업·팀워크</b><span class="dim-def">다학제 팀·치료실 운영에 협력</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>다학제 팀회의에서 환자 정보를 적극 공유하고, 바쁜 동료의 환자를 먼저 챙기며 치료실 분위기를 끌어올린다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>팀회의·인계에 성실히 참여하고 동료와 잘 협력한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>맡은 일을 하고 요청하면 동료를 돕는다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>협조가 수동적이거나 인계·정보 공유가 늦을 때가 있다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>비협조적이어서 팀·치료실 운영에 부담을 준다</td></tr></tbody></table></div>
+
+    <h3 class="sub">B. 직무역량 (전 구성원 · 7개 차원)</h3>
+    <p class="muted">※ 직종 특화 항목(PT: 도수·이동 / OT: ADL·인지 / ST: 의사소통·연하)은 해당 차원의 근거·메모에 직종 맥락으로 기재합니다.</p>
+    <div class="dim"><div class="dim-h"><span class="dim-no">1</span><b>환자 평가·기능검사</b><span class="dim-def">FIM·K-MBI 등 기능평가와 MMT·ROM 등 검사 시행·해석</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>FIM·K-MBI 등 기능평가와 MMT·ROM 같은 검사를 정확히 시행하고, 상태가 복잡한 환자도 결과를 종합해 핵심 문제를 정확히 짚어낸다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>기능평가와 도수검사를 정확히 시행하고 결과를 적절히 해석한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>정해진 평가도구를 절차대로 시행하고 기본 해석을 한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>평가 시행·해석에 오류가 있어 선임의 확인이 필요하다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>평가가 부정확해 재검사·지도가 자주 필요하다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">2</span><b>치료계획·목표설정</b><span class="dim-def">평가에 근거한 단기·장기 목표와 치료계획 수립·수정</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>평가 결과와 환자 회복 목표를 바탕으로 현실적인 단기·장기 목표와 치료계획을 세우고, 회복 속도에 맞춰 계획을 능동적으로 고치며 그 이유를 설명한다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>평가에 근거해 목표·치료계획을 세우고 경과에 따라 조정한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>표준 프로토콜에 따라 치료계획을 세운다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>계획이 형식적이고 경과 반영·수정이 늦다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>평가와 치료계획이 따로 놀아 목표가 불분명하다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">3</span><b>치료 수행·술기</b><span class="dim-def">안전·정확한 치료 수행과 환자 반응 대응</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>치료를 안전하고 정확하게 진행하면서 환자 반응(통증·피로·혈압 등)에 맞춰 그때그때 강도를 조절하고, 까다로운 케이스도 능숙히 다룬다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>치료를 안전·정확하게 수행하고 환자 반응에 잘 대응한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>표준 치료기법을 안전하게 수행한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>치료 수행이 미숙해 지도·보완이 필요하다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>치료 중 안전·정확성 문제가 반복된다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">4</span><b>환자·보호자 교육</b><span class="dim-def">자가운동·가정 내 케어 교육(재택복귀 대비)</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>환자·보호자가 알아듣기 쉽게 자가운동·주의사항·집에서의 케어 방법을 가르치고, 직접 해 보게 하며 퇴원 후에도 이어가도록 이끈다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>자가운동·주의사항을 환자·보호자가 이해하도록 분명히 교육한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>필요한 교육·설명을 정확히 제공한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>설명이 부족하거나 어려워 환자가 따라 하기 힘들다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>교육이 부실해 자가관리·보호자 케어가 잘 되지 않는다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">5</span><b>환자안전</b><span class="dim-def">낙상·흡인·욕창 등 위험 확인과 이상징후 대응</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>치료 전 환자 상태·금기·낙상위험을 스스로 확인하고, 이상징후(혈압·통증·어지럼·흡인 등)를 빨리 알아채 바로 중단·보고하며, 재발을 막을 방법까지 제안한다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>금기·위험요인을 확인하고 이상징후가 보이면 즉시 중단·보고한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>낙상·감염 등 기본 안전수칙을 지키고 분명한 이상징후는 보고한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>안전수칙은 대체로 지키나 사전 위험 확인을 자주 빠뜨린다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>안전수칙을 자주 놓치거나 이상징후를 챙기지 못한다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">6</span><b>치료기록·청구 연계</b><span class="dim-def">전자차트 당일 기록과 상병·치료내역 정확 기재</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>치료 기록을 그날그날 정확히 남기고 상병·치료내역을 규정대로 기재해 청구·적정성평가에 문제가 없게 하며, 동료 기록까지 점검·보완해 준다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>치료 기록을 제때 정확히, 규정에 맞게 작성한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>규정에 따라 필요한 기록을 작성한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>기록이 밀리거나 누락·오기가 종종 있다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>기록 미비·지연이 반복돼 청구·평가에 지장을 준다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">7</span><b>자기개발·전문성</b><span class="dim-def">보수교육·새 기법 습득과 사례 공유</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>새로운 치료기법과 최신 지견을 익혀 치료에 적용하고, 사례를 정리해 동료와 나누며 치료실 수준을 함께 끌어올린다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>보수교육·자료를 치료에 반영하며 꾸준히 공부한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>필수 보수교육을 이수하고 기본 실력을 유지한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>공부·자기개발이 수동적이고 새 지견 반영이 더디다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>자기개발 노력이 거의 없다</td></tr></tbody></table></div>
+
+    <h3 class="sub">C. 리더십역량 (직책자 전용 · 5개 차원)</h3>
+    <p class="muted">※ 팀매니저·파트매니저 등 직책 보유자만 평가합니다.</p>
+    <div class="dim"><div class="dim-h"><span class="dim-no">1</span><b>팀원 코칭·육성</b><span class="dim-def">치료사 지도와 성장 지원</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>치료사 한 명 한 명의 강점·부족한 점을 파악해 성장 방향을 잡아 주고, 평소 치료 장면을 보며 구체적으로 피드백·지도하며 교육 기회를 먼저 연결해 준다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>정기적으로 피드백하고 팀원의 교육·성장 기회를 적극 챙긴다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>요청하면 피드백을 주고 필요한 교육을 안내한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>지시는 하지만 일을 맡기길 꺼리고 후배 지도가 드물다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>팀원 지도·피드백을 거의 하지 않는다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">2</span><b>성과·업무관리</b><span class="dim-def">환자 배정·치료 일정과 실적 관리</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>팀 목표와 환자 배정·치료 일정을 명확히 잡고, 치료 실적과 진행 상황을 수시로 챙기며 처지는 부분을 빨리 잡아 개선한다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>팀 목표를 세우고 실적·진행을 정기적으로 점검·피드백한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>정해진 목표에 따라 팀 업무를 관리한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>목표·기준이 모호하거나 점검이 들쭉날쭉하다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>업무관리가 되지 않아 팀 운영이 방치된다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">3</span><b>갈등관리·조직운영</b><span class="dim-def">갈등의 공정한 조정과 치료실 운영</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>팀원 간 갈등이나 타 치료실과의 마찰을 원인까지 파고들어 공정하게 풀고, 다시 생기지 않도록 규칙·분위기를 잡는다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>팀 안의 갈등을 공정하게 다루고 원만히 조정한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>갈등이 생기면 개입해 기본적으로 정리한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>개입이 늦거나 한쪽에 치우쳐 뒷말이 남는다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>갈등을 방치하거나 더 키운다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">4</span><b>의사결정·문제해결</b><span class="dim-def">현장 상황에 맞는 시의적절한 판단</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>현장 상황과 데이터를 종합해 제때 판단하고, 애매한 상황에서도 책임지고 결정하며 결과를 되짚어 보완한다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>필요한 정보를 모아 합리적으로, 제때 결정한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>정해진 범위 안에서 필요한 결정을 한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>결정을 미루거나 근거가 부족한 판단을 할 때가 있다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>결정을 피하거나 잘못된 판단으로 업무에 지장을 준다</td></tr></tbody></table></div><div class="dim"><div class="dim-h"><span class="dim-no">5</span><b>자원·운영관리</b><span class="dim-def">인력·치료실 일정·장비의 효율적 운영</span></div><table class="anc"><tbody><tr class="hi"><td class="sc">5 · 탁월</td><td>치료사 인력과 치료실 일정·장비를 효율적으로 운영해 환자 대기와 치료 흐름을 원활히 하고, 개선거리를 먼저 찾아 손본다</td></tr><tr class="hi"><td class="sc">4 · 우수</td><td>인력·일정을 효율적으로 운영하고 자원을 적절히 배분한다</td></tr><tr class="mid"><td class="sc">3 · 기대충족</td><td>주어진 자원으로 정상 운영을 유지한다</td></tr><tr class="lo"><td class="sc">2 · 향상 기대</td><td>자원 배분이 비효율적이거나 운영 차질이 잦다</td></tr><tr class="lo"><td class="sc">1 · 성장 필요</td><td>운영관리 미흡으로 치료실에 지장이 반복된다</td></tr></tbody></table></div>
+
+    <hr class="div">
+    <p class="muted" style="text-align:center">재활치료센터 조직계층 개편 및 다면 역량평가 시스템 도입 제안 · 문서 버전 1.0</p>
+
+  </div>
+</div>
+
+<div class="toolbar"><button class="btn" onclick="window.print()">인쇄 / PDF 저장</button></div>
+</body>
+</html>
