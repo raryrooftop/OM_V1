@@ -106,6 +106,11 @@ tr.hi{background:#FBFDF6;}
 
 hr.div{border:none; border-top:1px solid var(--line); margin:36px 0;}
 
+.fig{margin:20px 0; padding:18px 18px 12px; background:var(--page); border:1px solid var(--line);
+  border-radius:14px;}
+.fig svg{width:100%; height:auto; display:block;}
+.fig figcaption{margin-top:8px; font-size:12px; color:var(--ink-sub); text-align:center;}
+
 .toolbar{position:fixed; right:18px; bottom:18px; z-index:50;}
 .btn{font-family:inherit; font-weight:700; font-size:13.5px; padding:11px 18px; border:none;
   border-radius:24px; cursor:pointer; background:var(--primary); color:var(--on-primary);
@@ -218,6 +223,29 @@ hr.div{border:none; border-top:1px solid var(--line); margin:36px 0;}
       <div class="cardx"><div class="ic">직무</div><b>직무역량 · 7개</b><span>환자 평가·기능검사, 치료계획, 치료 수행, 환자교육, 환자안전, 기록·청구, 자기개발</span></div>
       <div class="cardx"><div class="ic">리더</div><b>리더십역량 · 5개</b><span>코칭·육성, 성과·업무관리, 갈등관리, 의사결정, 자원·운영관리 (직책자)</span></div>
     </div>
+    <figure class="fig"><svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard, system-ui, sans-serif" role="img" aria-label="계층별 평가 항목 매핑도">
+  <style>
+    .lab{font-size:13px;font-weight:700;fill:#172403}
+    .sm{font-size:11px;fill:#5b6657}
+    .hd{font-size:12.5px;font-weight:800;fill:#fff}
+    .tag{font-size:11px;font-weight:700}
+    .note{font-size:10.5px;fill:#8a9483}
+  </style>
+  <text x="20" y="26" style="font-size:15px;font-weight:800;fill:#172403">계층별 평가 항목 — 누가 어떤 역량을 평가받는가</text>
+
+  <!-- 역량군 헤더 -->
+  <rect x="300" y="46" width="140" height="30" rx="7" fill="#4d6b11"/>
+  <text x="370" y="66" text-anchor="middle" class="hd">공통역량 (4)</text>
+  <rect x="450" y="46" width="140" height="30" rx="7" fill="#4d6b11"/>
+  <text x="520" y="66" text-anchor="middle" class="hd">직무역량 (7)</text>
+  <rect x="600" y="46" width="140" height="30" rx="7" fill="#4d6b11"/>
+  <text x="670" y="66" text-anchor="middle" class="hd">리더십역량 (5)</text>
+
+  <!-- 행 데이터: (y, 계층명, 트랙, 공통, 직무, 리더십) -->
+  <rect x="20" y="86" width="720" height="56" rx="8" fill="#F4F9EB" stroke="#E3E8DC"/><text x="36" y="112" class="lab">치료사 · 선임치료사</text><text x="36" y="130" class="sm">실무트랙</text><circle cx="370" cy="108" r="9" fill="#8dc21f"/><text x="370" y="112" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="520" cy="108" r="9" fill="#8dc21f"/><text x="520" y="112" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="670" cy="108" r="9" fill="none" stroke="#CBD3BF" stroke-width="1.5"/><rect x="20" y="148" width="720" height="56" rx="8" fill="#FFFFFF" stroke="#E3E8DC"/><text x="36" y="174" class="lab">책임치료사</text><text x="36" y="192" class="sm">전문가트랙</text><circle cx="370" cy="170" r="9" fill="#8dc21f"/><text x="370" y="174" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="520" cy="170" r="9" fill="#8dc21f"/><text x="520" y="174" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="670" cy="170" r="9" fill="none" stroke="#CBD3BF" stroke-width="1.5"/><rect x="20" y="210" width="720" height="56" rx="8" fill="#F4F9EB" stroke="#E3E8DC"/><text x="36" y="236" class="lab">팀매니저</text><text x="36" y="254" class="sm">관리트랙</text><circle cx="370" cy="232" r="9" fill="#8dc21f"/><text x="370" y="236" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="520" cy="232" r="9" fill="#8dc21f"/><text x="520" y="236" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="670" cy="232" r="9" fill="#8dc21f"/><text x="670" y="236" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><rect x="20" y="272" width="720" height="56" rx="8" fill="#FFFFFF" stroke="#E3E8DC"/><text x="36" y="298" class="lab">파트매니저</text><text x="36" y="316" class="sm">관리트랙</text><circle cx="370" cy="294" r="9" fill="#8dc21f"/><text x="370" y="298" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="520" cy="294" r="9" fill="#8dc21f"/><text x="520" y="298" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="670" cy="294" r="9" fill="#8dc21f"/><text x="670" y="298" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><rect x="20" y="334" width="720" height="56" rx="8" fill="#F4F9EB" stroke="#E3E8DC"/><text x="36" y="360" class="lab">시니어매니저</text><text x="36" y="378" class="sm">관리트랙</text><circle cx="370" cy="356" r="9" fill="#8dc21f"/><text x="370" y="360" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="520" cy="356" r="9" fill="#8dc21f"/><text x="520" y="360" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text><circle cx="670" cy="356" r="9" fill="#8dc21f"/><text x="670" y="360" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#172403">●</text>
+
+  <text x="20" y="416" class="note">● 적용  ○ 미적용 · 직책 보유 시 리더십역량이 추가되며 평가 비중(트랙)이 관리트랙으로 전환됩니다.</text>
+</svg><figcaption>[그림 1] 계층별 평가 항목 매핑 — 직급·직책에 따라 평가받는 역량군과 적용 트랙</figcaption></figure>
 
     <h3 class="sub">4-3. 다면 평가자 구성</h3>
     <p>평가 주체는 본인·동료·팀원(상향)·상급자이며, 피평가자 유형에 따라 평가자가 달라집니다.</p>
@@ -231,9 +259,98 @@ hr.div{border:none; border-top:1px solid var(--line); margin:36px 0;}
       </tbody>
     </table>
     <div class="callout">인원이 2명인 언어재활파트는 내부 동료가 없어, 다학제 협업에서 관찰 가능한 <b>공통역량만</b> 타 파트 치료사·팀매니저가 교차 평가합니다. 전문 술기(직무역량)는 타 직종이 판정할 수 없으므로 상급자가 전담합니다.</div>
+    <figure class="fig"><svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard, system-ui, sans-serif" role="img" aria-label="다면 평가자 관계도">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#4d6b11"/>
+    </marker>
+    <marker id="arrG" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#8dc21f"/>
+    </marker>
+  </defs>
+  <text x="20" y="26" style="font-size:15px;font-weight:800;fill:#172403">다면 평가자 관계 — 화살표 방향이 ‘평가하는 방향’</text>
+
+  <!-- 중앙 피평가자 -->
+  <circle cx="380" cy="210" r="58" fill="#172403"/>
+  <text x="380" y="205" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#fff">피평가자</text>
+  <text x="380" y="224" text-anchor="middle" style="font-size:11px;fill:#E9F2D6">(본인)</text>
+
+  <!-- 상급자 (위) -->
+  <rect x="305" y="56" width="150" height="48" rx="10" fill="#8dc21f"/>
+  <text x="380" y="78" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#172403">상급자</text>
+  <text x="380" y="95" text-anchor="middle" style="font-size:10.5px;fill:#172403">직무·리더십 비중 큼</text>
+  <line x1="380" y1="108" x2="380" y2="148" stroke="#4d6b11" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- 동료 (좌) -->
+  <rect x="40" y="186" width="150" height="48" rx="10" fill="#E9F2D6" stroke="#8dc21f"/>
+  <text x="115" y="208" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#4d6b11">동료 (횡적)</text>
+  <text x="115" y="225" text-anchor="middle" style="font-size:10.5px;fill:#5b6657">공통·협업 비중 큼</text>
+  <line x1="194" y1="210" x2="318" y2="210" stroke="#8dc21f" stroke-width="2.5" marker-end="url(#arrG)"/>
+
+  <!-- 팀원 상향 (아래) -->
+  <rect x="305" y="316" width="150" height="48" rx="10" fill="#E9F2D6" stroke="#8dc21f"/>
+  <text x="380" y="338" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#4d6b11">팀원 (상향)</text>
+  <text x="380" y="355" text-anchor="middle" style="font-size:10.5px;fill:#5b6657">리더십 비중 큼 · 직책자만</text>
+  <line x1="380" y1="316" x2="380" y2="272" stroke="#8dc21f" stroke-width="2.5" marker-end="url(#arrG)"/>
+
+  <!-- 자기평가 (우, 점선) -->
+  <rect x="570" y="186" width="160" height="48" rx="10" fill="#FFFFFF" stroke="#CBD3BF" stroke-dasharray="4 3"/>
+  <text x="650" y="208" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#5b6657">자기평가</text>
+  <text x="650" y="225" text-anchor="middle" style="font-size:10.5px;fill:#8a9483">점수 미반영 · 격차용</text>
+  <line x1="442" y1="210" x2="566" y2="210" stroke="#CBD3BF" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <text x="20" y="390" style="font-size:10.5px;fill:#8a9483">● 자기평가는 종합점수에 반영하지 않고, 타인평가와의 ‘격차’를 본인 성찰·면담 자료로만 활용합니다.</text>
+</svg><figcaption>[그림 2] 다면 평가자 관계 — 화살표 방향이 평가하는 방향, 자기평가는 점선(점수 미반영)</figcaption></figure>
 
     <h3 class="sub">4-4. 점수 산정 방식 — 2단계 가중</h3>
     <p><b>핵심 원칙:</b> 자기평가는 점수에 반영하지 않습니다(자기-타인 격차 확인용). “누가 무엇을 가장 잘 보는가”에 따라 평가자 비중을 역량군마다 다르게 둡니다.</p>
+    <figure class="fig"><svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard, system-ui, sans-serif" role="img" aria-label="2단계 점수 산정 흐름도">
+  <defs>
+    <marker id="fa" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#4d6b11"/>
+    </marker>
+  </defs>
+  <text x="20" y="26" style="font-size:15px;font-weight:800;fill:#172403">점수 산정 흐름 — 2단계 가중</text>
+
+  <!-- STEP 0: 평가자 점수 -->
+  <text x="30" y="62" style="font-size:11.5px;font-weight:800;fill:#5a7d14">평가자 점수</text>
+  <rect x="30" y="78" width="150" height="40" rx="8" fill="#E9F2D6" stroke="#CBD3BF" /><text x="105" y="103" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#4d6b11">동료</text><line x1="182" y1="98" x2="296" y2="179" stroke="#CBD3BF" stroke-width="1.4"/><rect x="30" y="130" width="150" height="40" rx="8" fill="#E9F2D6" stroke="#CBD3BF" /><text x="105" y="155" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#4d6b11">상급자</text><line x1="182" y1="150" x2="296" y2="179" stroke="#CBD3BF" stroke-width="1.4"/><rect x="30" y="182" width="150" height="40" rx="8" fill="#E9F2D6" stroke="#CBD3BF" /><text x="105" y="207" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#4d6b11">팀원(상향)</text><line x1="182" y1="202" x2="296" y2="179" stroke="#CBD3BF" stroke-width="1.4"/><rect x="30" y="234" width="150" height="40" rx="8" fill="#F0F1ED" stroke="#CBD3BF" stroke-dasharray="4 3"/><text x="105" y="259" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#8a9483">자기평가</text>
+
+  <!-- STEP 1: 역량군 점수 -->
+  <text x="318" y="62" style="font-size:11.5px;font-weight:800;fill:#5a7d14">1단계 · 역량군 점수</text>
+  <rect x="300" y="74" width="190" height="210" rx="12" fill="#F4F9EB" stroke="#8dc21f"/>
+  <text x="395" y="100" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#4d6b11">평가자 가중 합산</text>
+  <rect x="318" y="116" width="154" height="44" rx="8" fill="#FFFFFF" stroke="#E3E8DC"/>
+  <text x="395" y="134" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#172403">공통역량 점수</text>
+  <text x="395" y="150" text-anchor="middle" style="font-size:10px;fill:#5b6657">동료·상급자(·팀원)</text>
+  <rect x="318" y="166" width="154" height="44" rx="8" fill="#FFFFFF" stroke="#E3E8DC"/>
+  <text x="395" y="184" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#172403">직무역량 점수</text>
+  <text x="395" y="200" text-anchor="middle" style="font-size:10px;fill:#5b6657">상급자 비중 큼</text>
+  <rect x="318" y="216" width="154" height="44" rx="8" fill="#FFFFFF" stroke="#E3E8DC"/>
+  <text x="395" y="234" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#172403">리더십역량 점수</text>
+  <text x="395" y="250" text-anchor="middle" style="font-size:10px;fill:#5b6657">팀원 상향 비중 큼</text>
+
+  <!-- 화살표 1→2 -->
+  <line x1="494" y1="179" x2="544" y2="179" stroke="#4d6b11" stroke-width="2.5" marker-end="url(#fa)"/>
+
+  <!-- STEP 2: 종합 -->
+  <text x="556" y="62" style="font-size:11.5px;font-weight:800;fill:#5a7d14">2단계 · 종합</text>
+  <rect x="548" y="100" width="190" height="86" rx="12" fill="#172403"/>
+  <text x="643" y="130" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#E9F2D6">트랙별 역량군 가중</text>
+  <text x="643" y="156" text-anchor="middle" style="font-size:18px;font-weight:800;fill:#fff">종합점수</text>
+  <text x="643" y="174" text-anchor="middle" style="font-size:10px;fill:#E9F2D6">실무/전문가/관리 트랙</text>
+
+  <!-- 화살표 →등급 -->
+  <line x1="643" y1="186" x2="643" y2="214" stroke="#4d6b11" stroke-width="2.5" marker-end="url(#fa)"/>
+
+  <!-- 등급 배지 -->
+  <rect x="548" y="222" width="190" height="62" rx="12" fill="#E9F2D6" stroke="#8dc21f"/>
+  <text x="643" y="246" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#4d6b11">등급 환산</text>
+  <text x="643" y="270" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#172403">S · A · B · C · D</text>
+
+  <text x="20" y="330" style="font-size:10.5px;fill:#8a9483">① 평가자별 점수를 역량군마다 다른 비중으로 합산 → ② 트랙별 비중으로 종합 → 등급 환산</text>
+  <text x="20" y="348" style="font-size:10.5px;fill:#8a9483">※ 자기평가는 합산에서 제외(격차 표시용). 동료 5명↑ 절사평균 · 3명 미만 마스킹 · 회수율 60% 기준 적용.</text>
+</svg><figcaption>[그림 3] 점수 산정 흐름 — 평가자 점수 → 역량군 점수(1단계) → 종합점수·등급(2단계)</figcaption></figure>
     <h4 class="subsub">1단계 — 역량군 점수 (평가자 가중)</h4>
     <div class="formula">역량군 점수 = Σ ( 평가자 유형 평균 <b>×</b> 평가자 비중 )</div>
     <table class="t">
