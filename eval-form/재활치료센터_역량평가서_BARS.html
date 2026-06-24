@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>재활치료센터 역량평가서 (BARS)</title>
+<link rel="stylesheet" as="style" crossorigin
+ href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --navy:#1F3864; --blue:#2E5496; --blue2:#5B8AC6;
+    --lblue:#D6E0F0; --lblue2:#EAF0FA; --grey:#F4F5F7; --gold:#FFF3CC;
+    --line:#D2D7E0; --ink:#1f2430; --sub:#5b6472; --red:#C0392B;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,
+      system-ui,"Segoe UI",Roboto,"Helvetica Neue","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:var(--ink); background:#EBEEF3; margin:0; line-height:1.55;
+    font-feature-settings:"tnum"; letter-spacing:-0.01em;
+  }
+  .sheet{max-width:980px; margin:24px auto; background:#fff; padding:40px 44px 56px;
+    box-shadow:0 2px 18px rgba(20,40,80,.10); border-radius:6px;}
+  .doc-title{text-align:center; margin:6px 0 2px; font-size:30px; font-weight:800; color:var(--navy);}
+  .doc-sub{text-align:center; font-size:16px; font-weight:700; color:var(--blue); margin:0;}
+  .doc-tag{text-align:center; font-size:12.5px; color:var(--sub); margin:6px 0 26px;}
+  h2.sec{font-size:17px; font-weight:800; color:var(--navy); margin:30px 0 12px;
+    padding-bottom:7px; border-bottom:2.5px solid var(--blue);}
+  h3.sub{font-size:14px; font-weight:700; color:var(--blue); margin:18px 0 8px;}
+  table{border-collapse:collapse; width:100%; font-size:13px;}
+  .grid th,.grid td{border:1px solid var(--line); padding:7px 10px; vertical-align:middle;}
+  .grid th{background:var(--lblue2); font-weight:700; text-align:left; white-space:nowrap;}
+  .grid td input{width:100%; border:none; font:inherit; color:inherit; background:transparent; outline:none;}
+  .info td{height:34px;}
+
+  /* 척도 */
+  .scale th{background:var(--blue); color:#fff; text-align:center; border-color:var(--blue);}
+  .scale .sn{width:60px; text-align:center; color:#fff; font-weight:800; font-size:15px;}
+  .scale .sg{width:96px; text-align:center; font-weight:700;}
+  .b5{background:#2E5496;} .b4{background:#5B8AC6;} .b3{background:#8FAADC;}
+  .b2{background:#C5705D;} .b1{background:#A6492F;}
+
+  /* 가중치 */
+  .wtab th{background:var(--blue); color:#fff; text-align:center; border-color:var(--blue);}
+  .wtab td{text-align:center;} .wtab .wt-t{text-align:left;} .wtab .b{font-weight:800;}
+
+  .note{font-size:12px; color:var(--sub); margin:6px 0;}
+  .note.red{color:var(--red);}
+  ul.guide{margin:6px 0 0; padding-left:18px; font-size:13px;}
+  ul.guide li{margin:3px 0;}
+
+  /* 차원 블록 */
+  .dim{border:1px solid var(--line); border-radius:6px; margin:12px 0; overflow:hidden;
+    break-inside:avoid;}
+  .dim-head{background:var(--lblue2); padding:9px 12px; display:flex; align-items:baseline;
+    gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line);}
+  .dno{background:var(--navy); color:#fff; font-weight:800; font-size:12px;
+    width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center;
+    justify-content:center; flex:none;}
+  .dname{font-weight:800; color:var(--navy); font-size:14.5px;}
+  .ddef{color:var(--sub); font-size:12px;}
+  table.anchors{width:100%;}
+  table.anchors td{border-bottom:1px solid #EBEEF3; padding:6px 12px; font-size:12.8px;}
+  table.anchors tr:last-child td{border-bottom:none;}
+  td.sc{width:42px; text-align:center; font-weight:800; font-size:15px;}
+  tr.hi td.sc{color:var(--blue);} tr.lo td.sc{color:var(--red);}
+  tr.s3{background:var(--grey);}
+  .srow{display:flex; align-items:flex-end; gap:14px; padding:10px 12px;
+    background:#FCFCFD; border-top:1px solid var(--line); flex-wrap:wrap;}
+  .sc-lab{font-size:11.5px; font-weight:700; color:var(--sub); display:flex;
+    flex-direction:column; gap:3px;}
+  .sc-lab select{font:inherit; font-size:15px; font-weight:700; color:var(--ink);
+    padding:4px 6px; border:1.5px solid var(--blue2); border-radius:5px; background:var(--gold);
+    min-width:64px; text-align:center;}
+  .gap{font-size:11.5px; color:var(--sub); align-self:center;}
+  .gap b{font-size:14px; color:var(--ink);}
+  .gap.warn b{color:var(--red);}
+  .memo{flex:1 1 280px; min-width:240px; font-size:11.5px; font-weight:700; color:var(--sub);
+    display:flex; flex-direction:column; gap:3px;}
+  textarea{font:inherit; font-size:12.5px; color:var(--ink); border:1px solid var(--line);
+    border-radius:5px; padding:6px 8px; resize:vertical; width:100%; background:#fff;}
+
+  /* 종합 */
+  .summary{position:sticky; top:0; z-index:5; background:#fff;}
+  .sumtab th{background:var(--blue); color:#fff; text-align:center; border-color:var(--blue);}
+  .sumtab td{text-align:center; height:34px;}
+  .sumtab .gname{text-align:left; font-weight:700; background:var(--lblue2);}
+  .sumtab .total td{font-size:15px; font-weight:800; background:var(--gold);}
+  .sumtab .total th{background:var(--navy); color:#fff; text-align:center;}
+  #grade{font-size:16px; font-weight:800;}
+  .track-pick{display:flex; align-items:center; gap:10px; margin:8px 0 12px;
+    background:var(--lblue2); padding:10px 12px; border-radius:6px;}
+  .track-pick label{font-weight:800; color:var(--navy); font-size:13.5px;}
+  .track-pick select{font:inherit; font-size:13.5px; font-weight:700; padding:6px 10px;
+    border:1.5px solid var(--blue2); border-radius:6px; background:#fff; flex:1; max-width:420px;}
+
+  /* IDP / 서명 */
+  .idp th{background:var(--lblue2); width:160px; vertical-align:top; text-align:left;}
+  .idp td{padding:6px;}
+  .sign th{background:var(--lblue2); text-align:center; width:160px;}
+  .sign td{height:42px;}
+  .sign thead th{background:var(--blue); color:#fff; border-color:var(--blue);}
+
+  .toolbar{position:fixed; right:18px; bottom:18px; display:flex; gap:8px; z-index:50;}
+  .btn{font:inherit; font-weight:700; font-size:13px; padding:10px 16px; border:none;
+    border-radius:24px; cursor:pointer; box-shadow:0 3px 10px rgba(20,40,80,.22);}
+  .btn.print{background:var(--navy); color:#fff;}
+  .btn.reset{background:#fff; color:var(--navy); border:1.5px solid var(--navy);}
+
+  @media print{
+    body{background:#fff;}
+    .sheet{box-shadow:none; margin:0; max-width:none; padding:0 6mm;}
+    .toolbar{display:none;}
+    .summary{position:static;}
+    select,textarea,input{border:1px solid #bbb !important; background:#fff !important;}
+    .dim,.scale,.wtab,.sumtab,.idp,.sign{break-inside:avoid;}
+    h2.sec{break-after:avoid;}
+    @page{size:A4; margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <h1 class="doc-title">재활치료센터 역량평가서</h1>
+  <p class="doc-sub">BARS 행위기준평정척도 기반</p>
+  <p class="doc-tag">공통역량 · 직무역량 · 리더십역량 통합 / 평가점수 · 개발피드백 병행 · 회복기 재활의료기관용</p>
+
+  <h2 class="sec">1. 기본 정보</h2>
+  <table class="grid info">
+    <tr><th style="width:130px">피평가자</th><td><input></td>
+        <th style="width:130px">사번</th><td><input></td></tr>
+    <tr><th>직급</th><td><input></td><th>직책</th><td><input></td></tr>
+    <tr><th>소속 파트</th><td><input></td><th>평가일</th><td><input></td></tr>
+  </table>
+
+  <h2 class="sec">2. 평가 안내</h2>
+  <h3 class="sub">2-1. 5점 행동척도(BARS)의 의미</h3>
+  <table class="grid scale"><thead>
+    <tr><th>점수</th><th>등급</th><th>의미</th></tr></thead>
+    <tbody><tr><td class="sn b5">5</td><td class="sg">탁월</td><td class="sm">기대를 크게 넘어섬. 타의 모범이 되고 개선·확산을 주도</td></tr><tr><td class="sn b4">4</td><td class="sg">우수</td><td class="sm">기대를 넘어섬. 안정적·일관되게 높은 수준으로 수행</td></tr><tr><td class="sn b3">3</td><td class="sg">기대충족</td><td class="sm">직급에 기대되는 표준 수준을 충족</td></tr><tr><td class="sn b2">2</td><td class="sg">개선필요</td><td class="sm">표준에 다소 못 미쳐 보완·지도가 필요</td></tr><tr><td class="sn b1">1</td><td class="sg">미흡</td><td class="sm">표준에 크게 못 미쳐 즉각 개선이 필요</td></tr></tbody></table>
+
+  <h3 class="sub">2-2. 트랙별 가중치 (역량평가 기준)</h3>
+  <table class="grid wtab"><thead>
+    <tr><th>트랙</th><th>공통</th><th>직무</th><th>리더십</th><th>합계</th></tr></thead>
+    <tbody><tr><td class="wt-t">실무트랙 (치료사·선임치료사)</td><td>30%</td><td>70%</td><td>—</td><td class="b">100%</td></tr><tr><td class="wt-t">전문가트랙 (책임·수석치료사)</td><td>25%</td><td>75%</td><td>—</td><td class="b">100%</td></tr><tr><td class="wt-t">관리트랙 (부팀장·팀장·실장·센터장)</td><td>15%</td><td>25%</td><td>60%</td><td class="b">100%</td></tr></tbody></table>
+  <p class="note">※ 비직책자는 공통·직무역량만 평가하며, 리더십역량은 직책자(부팀장 이상)만 평가합니다.</p>
+  <p class="note">※ 종합점수 = 공통평균×가중 + 직무평균×가중 + 리더십평균×가중 (아래에서 트랙 선택 시 자동 적용).</p>
+
+  <h3 class="sub">2-3. 작성 요령</h3>
+  <ul class="guide">
+    <li>각 차원의 점수별 행동기준을 읽고, 실제 행동에 가장 가까운 점수(1~5)를 자기평가·평가자평가에 고릅니다.</li>
+    <li>인상이 아니라 관찰된 행동·사례를 근거로 평정하고, ‘근거·메모’에 구체적 사례를 적습니다.</li>
+    <li>자기평가를 먼저 작성한 뒤 상급자가 평가하고, 격차가 큰 차원을 면담에서 우선 논의합니다.</li>
+    <li>등급용(총괄) 점수는 연 1회 산정하며, 개발용 코칭 기록은 별도로 분리 관리합니다.</li>
+  </ul>
+
+  <h2 class="sec">3. 종합 집계 <span style="font-size:12px;color:var(--sub);font-weight:600">(점수 입력 시 자동 산출)</span></h2>
+  <div class="summary">
+    <div class="track-pick">
+      <label for="track">평가 트랙 ▾</label>
+      <select id="track"><option value="실무트랙 (치료사·선임치료사)">실무트랙 (치료사·선임치료사)</option><option value="전문가트랙 (책임·수석치료사)">전문가트랙 (책임·수석치료사)</option><option value="관리트랙 (부팀장·팀장·실장·센터장)">관리트랙 (부팀장·팀장·실장·센터장)</option></select>
+    </div>
+    <table class="grid sumtab"><thead>
+      <tr><th>역량군</th><th>평가자 평균</th><th>가중치</th><th>가중 점수</th></tr></thead>
+      <tbody>
+        <tr><td class="gname">공통역량</td><td id="avg-공통">–</td><td id="w-공통">–</td><td id="ws-공통">–</td></tr>
+        <tr><td class="gname">직무역량</td><td id="avg-직무">–</td><td id="w-직무">–</td><td id="ws-직무">–</td></tr>
+        <tr><td class="gname">리더십역량 <span style="font-weight:500;color:var(--sub)">(직책자)</span></td>
+            <td id="avg-리더십">–</td><td id="w-리더십">–</td><td id="ws-리더십">–</td></tr>
+        <tr class="total"><th>종합 점수</th><td colspan="2" id="total">–</td><td id="grade">–</td></tr>
+      </tbody></table>
+  </div>
+
+  <h2 class="sec">4. 공통역량 평가 <span style="font-size:12px;color:var(--sub);font-weight:600">(전 직원)</span></h2>
+  
+  <div class="dim" data-group="공통">
+    <div class="dim-head"><span class="dno">1</span><span class="dname">성실·직업윤리</span>
+      <span class="ddef">치료 성실 수행, 환자 정보보호, 근태·직업윤리 준수</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">맡은 환자의 치료 시간·횟수를 빠짐없이 채우고, 환자 정보와 진료내용을 철저히 지키며, 비협조적이거나 까다로운 환자도 끝까지 책임지고 동료에게 본이 된다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">치료 시간·횟수를 성실히 지키고, 환자 정보보호와 동의 절차를 한결같이 지킨다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">정해진 치료 일정과 기본 직업윤리(정보보호·환자 존중)를 지킨다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">치료 누락·지각이나 정보 관리에서 가끔 주의가 필요하다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">무단 치료 누락이나 환자 정보 부주의 등 기본이 반복적으로 지켜지지 않는다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="공통"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="공통">
+    <div class="dim-head"><span class="dno">2</span><span class="dname">환자중심 치료</span>
+      <span class="ddef">환자의 회복 목표·생활여건을 고려해 치료에 반영</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">환자의 회복 목표와 퇴원 후 생활(재택복귀·시설 등)을 환자·보호자와 함께 정하고, 체력·인지·집안 환경까지 고려해 치료를 맞춰 간다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">환자·보호자의 바람과 생활여건을 파악해 치료에 반영한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">환자의 요구를 듣고 무리 없는 선에서 치료에 반영한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">정해진 프로그램대로만 진행해 환자 사정 반영이 부족하다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">환자가 무엇을 원하는지, 어떤 형편인지 거의 고려하지 않는다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="공통"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="공통">
+    <div class="dim-head"><span class="dno">3</span><span class="dname">의사소통</span>
+      <span class="ddef">환자·보호자·동료·타 직종과의 원활한 소통</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">환자·보호자에게 회복 정도와 주의사항을 알아듣기 쉽게 설명하고, 의사·간호·타 치료실과도 환자 상태를 막힘없이 주고받는다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">환자·보호자, 동료와 필요한 내용을 분명하고 정중하게 주고받는다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">업무에 필요한 의사소통을 무리 없이 한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">설명이 불분명하거나 인계가 부실해 오해·재확인이 잦다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">의사소통 문제로 환자 혼선이나 업무 차질이 반복된다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="공통"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="공통">
+    <div class="dim-head"><span class="dno">4</span><span class="dname">협업·팀워크</span>
+      <span class="ddef">다학제 팀·치료실 운영에 협력</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">다학제 팀회의에서 환자 정보를 적극 공유하고, 바쁜 동료의 환자를 먼저 챙기며 치료실 분위기를 끌어올린다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">팀회의·인계에 성실히 참여하고 동료와 잘 협력한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">맡은 일을 하고 요청하면 동료를 돕는다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">협조가 수동적이거나 인계·정보 공유가 늦을 때가 있다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">비협조적이어서 팀·치료실 운영에 부담을 준다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="공통"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+
+  <h2 class="sec">5. 직무역량 평가 <span style="font-size:12px;color:var(--sub);font-weight:600">(물리·작업·언어치료 공통)</span></h2>
+  <p class="note red">※ 직종 특화 항목(PT: 도수·이동 / OT: ADL·인지 / ST: 의사소통·연하)은 해당 차원의 ‘근거·메모’에 직종 맥락으로 기재합니다.</p>
+  
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">1</span><span class="dname">환자 평가·기능검사</span>
+      <span class="ddef">FIM·K-MBI 등 기능평가와 MMT·ROM 등 검사 시행·해석</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">FIM·K-MBI 등 기능평가와 MMT·ROM 같은 검사를 정확히 시행하고, 상태가 복잡한 환자도 결과를 종합해 핵심 문제를 정확히 짚어낸다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">기능평가와 도수검사를 정확히 시행하고 결과를 적절히 해석한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">정해진 평가도구를 절차대로 시행하고 기본 해석을 한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">평가 시행·해석에 오류가 있어 선임의 확인이 필요하다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">평가가 부정확해 재검사·지도가 자주 필요하다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">2</span><span class="dname">치료계획·목표설정</span>
+      <span class="ddef">평가에 근거한 단기·장기 목표와 치료계획 수립·수정</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">평가 결과와 환자 회복 목표를 바탕으로 현실적인 단기·장기 목표와 치료계획을 세우고, 회복 속도에 맞춰 계획을 능동적으로 고치며 그 이유를 설명한다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">평가에 근거해 목표·치료계획을 세우고 경과에 따라 조정한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">표준 프로토콜에 따라 치료계획을 세운다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">계획이 형식적이고 경과 반영·수정이 늦다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">평가와 치료계획이 따로 놀아 목표가 불분명하다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">3</span><span class="dname">치료 수행·술기</span>
+      <span class="ddef">안전·정확한 치료 수행과 환자 반응 대응</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">치료를 안전하고 정확하게 진행하면서 환자 반응(통증·피로·혈압 등)에 맞춰 그때그때 강도를 조절하고, 까다로운 케이스도 능숙히 다룬다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">치료를 안전·정확하게 수행하고 환자 반응에 잘 대응한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">표준 치료기법을 안전하게 수행한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">치료 수행이 미숙해 지도·보완이 필요하다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">치료 중 안전·정확성 문제가 반복된다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">4</span><span class="dname">환자·보호자 교육</span>
+      <span class="ddef">자가운동·가정 내 케어 교육(재택복귀 대비)</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">환자·보호자가 알아듣기 쉽게 자가운동·주의사항·집에서의 케어 방법을 가르치고, 직접 해 보게 하며 퇴원 후에도 이어가도록 이끈다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">자가운동·주의사항을 환자·보호자가 이해하도록 분명히 교육한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">필요한 교육·설명을 정확히 제공한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">설명이 부족하거나 어려워 환자가 따라 하기 힘들다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">교육이 부실해 자가관리·보호자 케어가 잘 되지 않는다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">5</span><span class="dname">환자안전</span>
+      <span class="ddef">낙상·흡인·욕창 등 위험 확인과 이상징후 대응</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">치료 전 환자 상태·금기·낙상위험을 스스로 확인하고, 이상징후(혈압·통증·어지럼·흡인 등)를 빨리 알아채 바로 중단·보고하며, 재발을 막을 방법까지 제안한다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">금기·위험요인을 확인하고 이상징후가 보이면 즉시 중단·보고한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">낙상·감염 등 기본 안전수칙을 지키고 분명한 이상징후는 보고한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">안전수칙은 대체로 지키나 사전 위험 확인을 자주 빠뜨린다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">안전수칙을 자주 놓치거나 이상징후를 챙기지 못한다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">6</span><span class="dname">치료기록·청구 연계</span>
+      <span class="ddef">전자차트 당일 기록과 상병·치료내역 정확 기재</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">치료 기록을 그날그날 정확히 남기고 상병·치료내역을 규정대로 기재해 청구·적정성평가에 문제가 없게 하며, 동료 기록까지 점검·보완해 준다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">치료 기록을 제때 정확히, 규정에 맞게 작성한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">규정에 따라 필요한 기록을 작성한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">기록이 밀리거나 누락·오기가 종종 있다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">기록 미비·지연이 반복돼 청구·평가에 지장을 준다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="직무">
+    <div class="dim-head"><span class="dno">7</span><span class="dname">자기개발·전문성</span>
+      <span class="ddef">보수교육·새 기법 습득과 사례 공유</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">새로운 치료기법과 최신 지견을 익혀 치료에 적용하고, 사례를 정리해 동료와 나누며 치료실 수준을 함께 끌어올린다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">보수교육·자료를 치료에 반영하며 꾸준히 공부한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">필수 보수교육을 이수하고 기본 실력을 유지한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">공부·자기개발이 수동적이고 새 지견 반영이 더디다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">자기개발 노력이 거의 없다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="직무"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+
+  <h2 class="sec">6. 리더십역량 평가 <span style="font-size:12px;color:var(--sub);font-weight:600">(직책자 전용)</span></h2>
+  <p class="note red">※ 직책자(부팀장·팀장·실장·센터장)만 작성합니다. 비직책자는 평가하지 않습니다.</p>
+  
+  <div class="dim" data-group="리더십">
+    <div class="dim-head"><span class="dno">1</span><span class="dname">팀원 코칭·육성</span>
+      <span class="ddef">치료사 지도와 성장 지원</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">치료사 한 명 한 명의 강점·부족한 점을 파악해 성장 방향을 잡아 주고, 평소 치료 장면을 보며 구체적으로 피드백·지도하며 교육 기회를 먼저 연결해 준다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">정기적으로 피드백하고 팀원의 교육·성장 기회를 적극 챙긴다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">요청하면 피드백을 주고 필요한 교육을 안내한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">지시는 하지만 일을 맡기길 꺼리고 후배 지도가 드물다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">팀원 지도·피드백을 거의 하지 않는다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="리더십"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="리더십">
+    <div class="dim-head"><span class="dno">2</span><span class="dname">성과·업무관리</span>
+      <span class="ddef">환자 배정·치료 일정과 실적 관리</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">팀 목표와 환자 배정·치료 일정을 명확히 잡고, 치료 실적과 진행 상황을 수시로 챙기며 처지는 부분을 빨리 잡아 개선한다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">팀 목표를 세우고 실적·진행을 정기적으로 점검·피드백한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">정해진 목표에 따라 팀 업무를 관리한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">목표·기준이 모호하거나 점검이 들쭉날쭉하다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">업무관리가 되지 않아 팀 운영이 방치된다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="리더십"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="리더십">
+    <div class="dim-head"><span class="dno">3</span><span class="dname">갈등관리·조직운영</span>
+      <span class="ddef">갈등의 공정한 조정과 치료실 운영</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">팀원 간 갈등이나 타 치료실과의 마찰을 원인까지 파고들어 공정하게 풀고, 다시 생기지 않도록 규칙·분위기를 잡는다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">팀 안의 갈등을 공정하게 다루고 원만히 조정한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">갈등이 생기면 개입해 기본적으로 정리한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">개입이 늦거나 한쪽에 치우쳐 뒷말이 남는다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">갈등을 방치하거나 더 키운다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="리더십"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="리더십">
+    <div class="dim-head"><span class="dno">4</span><span class="dname">의사결정·문제해결</span>
+      <span class="ddef">현장 상황에 맞는 시의적절한 판단</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">현장 상황과 데이터를 종합해 제때 판단하고, 애매한 상황에서도 책임지고 결정하며 결과를 되짚어 보완한다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">필요한 정보를 모아 합리적으로, 제때 결정한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">정해진 범위 안에서 필요한 결정을 한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">결정을 미루거나 근거가 부족한 판단을 할 때가 있다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">결정을 피하거나 잘못된 판단으로 업무에 지장을 준다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="리더십"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+  <div class="dim" data-group="리더십">
+    <div class="dim-head"><span class="dno">5</span><span class="dname">자원·운영관리</span>
+      <span class="ddef">인력·치료실 일정·장비의 효율적 운영</span></div>
+    <table class="anchors"><tbody><tr class="hi"><td class="sc">5</td><td class="anc">치료사 인력과 치료실 일정·장비를 효율적으로 운영해 환자 대기와 치료 흐름을 원활히 하고, 개선거리를 먼저 찾아 손본다</td></tr><tr class="hi"><td class="sc">4</td><td class="anc">인력·일정을 효율적으로 운영하고 자원을 적절히 배분한다</td></tr><tr class="s3"><td class="sc">3</td><td class="anc">주어진 자원으로 정상 운영을 유지한다</td></tr><tr class="lo"><td class="sc">2</td><td class="anc">자원 배분이 비효율적이거나 운영 차질이 잦다</td></tr><tr class="lo"><td class="sc">1</td><td class="anc">운영관리 미흡으로 치료실에 지장이 반복된다</td></tr></tbody></table>
+    <div class="srow">
+      <label class="sc-lab">자기평가
+        <select class="self"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <label class="sc-lab">평가자평가
+        <select class="eval" data-group="리더십"><option value=""></option><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label>
+      <span class="gap">격차 <b>–</b></span>
+      <label class="memo">근거·메모(사례)
+        <textarea rows="2" placeholder="관찰된 행동·사례를 적어 주세요"></textarea></label>
+    </div>
+  </div>
+
+  <h2 class="sec">7. 종합 의견 및 개발계획 (IDP)</h2>
+  <table class="grid idp"><tbody><tr><th>주요 강점 (행동 근거)</th><td><textarea rows="2"></textarea></td></tr><tr><th>개선·보완 영역</th><td><textarea rows="2"></textarea></td></tr><tr><th>차기 개발목표 (IDP)</th><td><textarea rows="2"></textarea></td></tr><tr><th>필요 교육·지원</th><td><textarea rows="2"></textarea></td></tr></tbody></table>
+
+  <h2 class="sec">8. 확인</h2>
+  <table class="grid sign"><thead>
+    <tr><th>구분</th><th>성명</th><th>서명 / 날인</th><th>확인 일자</th><th>면담 확인</th></tr></thead>
+    <tbody><tr><th>피평가자</th><td></td><td></td><td></td><td></td></tr><tr><th>1차 평가자(상급자)</th><td></td><td></td><td></td><td></td></tr><tr><th>2차 평가자(검토)</th><td></td><td></td><td></td><td></td></tr></tbody></table>
+  <p class="note">※ 본 점수는 등급용(총괄) 결과이며, 직급 승급·직책 보임 심사의 근거 자료로 활용됩니다.
+     자기-평가자 점수 격차가 큰 차원은 면담 시 우선 논의 대상으로 삼습니다.</p>
+</div>
+
+<div class="toolbar">
+  <button class="btn reset" onclick="resetForm()">초기화</button>
+  <button class="btn print" onclick="window.print()">인쇄 / PDF 저장</button>
+</div>
+
+<script>
+const WEIGHTS = {"실무트랙 (치료사·선임치료사)": {"common": 0.3, "job": 0.7, "lead": 0.0}, "전문가트랙 (책임·수석치료사)": {"common": 0.25, "job": 0.75, "lead": 0.0}, "관리트랙 (부팀장·팀장·실장·센터장)": {"common": 0.15, "job": 0.25, "lead": 0.6}};
+function calc(){
+  const track = document.getElementById('track').value;
+  const w = WEIGHTS[track] || {common:0,job:0,lead:0};
+  const wmap = {'공통':w.common,'직무':w.job,'리더십':w.lead};
+  let total = 0;
+  ['공통','직무','리더십'].forEach(g=>{
+    const evals = [...document.querySelectorAll('.eval[data-group="'+g+'"]')]
+      .map(s=>parseInt(s.value)).filter(v=>!isNaN(v));
+    const avg = evals.length ? evals.reduce((a,b)=>a+b,0)/evals.length : null;
+    document.getElementById('avg-'+g).textContent = avg!==null ? avg.toFixed(2) : '–';
+    const wt = wmap[g];
+    document.getElementById('w-'+g).textContent = Math.round(wt*100)+'%';
+    const ws = (avg!==null) ? avg*wt : 0;
+    document.getElementById('ws-'+g).textContent = (avg!==null) ? ws.toFixed(2) : '–';
+    total += ws;
+  });
+  const anyJob = [...document.querySelectorAll('.eval[data-group="직무"]')].some(s=>s.value);
+  const anyCommon = [...document.querySelectorAll('.eval[data-group="공통"]')].some(s=>s.value);
+  const tEl = document.getElementById('total'), gEl = document.getElementById('grade');
+  if(!anyCommon && !anyJob){ tEl.textContent='–'; gEl.textContent='–'; return; }
+  tEl.textContent = total.toFixed(2);
+  let g='D (미흡)';
+  if(total>=4.5) g='S (탁월)'; else if(total>=3.5) g='A (우수)';
+  else if(total>=2.5) g='B (기대충족)'; else if(total>=1.5) g='C (개선필요)';
+  gEl.textContent = g;
+}
+function updateGap(dim){
+  const self = dim.querySelector('.self').value, ev = dim.querySelector('.eval').value;
+  const b = dim.querySelector('.gap b'), gp = dim.querySelector('.gap');
+  if(self && ev){ const d = parseInt(ev)-parseInt(self);
+    b.textContent = (d>0?'+':'')+d; gp.classList.toggle('warn', Math.abs(d)>=2); }
+  else { b.textContent='–'; gp.classList.remove('warn'); }
+}
+document.querySelectorAll('.dim').forEach(dim=>{
+  dim.querySelectorAll('select').forEach(s=>s.addEventListener('change',()=>{updateGap(dim); calc();}));
+});
+document.getElementById('track').addEventListener('change', calc);
+function resetForm(){
+  document.querySelectorAll('select').forEach(s=>{ if(s.id!=='track') s.value=''; });
+  document.querySelectorAll('textarea, input').forEach(t=>t.value='');
+  document.querySelectorAll('.dim').forEach(d=>updateGap(d));
+  calc();
+}
+calc();
+</script>
+</body>
+</html>

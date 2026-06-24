@@ -1,0 +1,261 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "name": "재활치료센터 다면 역량평가 시스템 디자인 시스템",
+    "version": "1.0.0",
+    "description": "Pretendard 기반 · 절제된 SaaS 스타일(Linear/Notion 류) · 브랜드 연두(#8dc21f)는 포인트로만 사용 · 명도 분리 팔레트. Tailwind/Antigravity 적용용 디자인 토큰.",
+    "designPrinciples": [
+      "iOS HIG를 모방하지 않는다. 업무용 데이터 입력·대시보드 앱에 맞춘 차분하고 정보 밀도 높은 SaaS 스타일을 지향한다.",
+      "브랜드 연두는 화면의 약 10%에만(주요 버튼·진행률·선택 강조) 사용하고, 90%는 무채색(흰색·연두기운 중립회색·올리브블랙 텍스트)으로 둔다.",
+      "같은 브랜드 연두라도 배경용(#8dc21f)과 텍스트용(#5a7d14·#4d6b11)을 명도로 분리한다. 연두 위 글씨는 흰색이 아니라 올리브블랙(#172403)을 쓴다.",
+      "평가 점수에는 빨강~초록 신호등을 쓰지 않는다. 점수 색은 무채색 계열로 차분하게 두고, 연두는 완료·제출·우수 같은 긍정 액션에만 쓴다.",
+      "점진적 공개(progressive disclosure): 헤드라인을 먼저 보여주고 필요 시 펼친다. 16개 문항은 역량군 단위 아코디언으로 인지 부하를 낮춘다.",
+      "접근성 우선: 모든 본문 텍스트 조합은 WCAG AA(4.5:1) 이상을 충족한다. 포커스 표시와 키보드 내비게이션을 보장한다."
+    ]
+  },
+
+  "color": {
+    "brand": {
+      "primary":      { "value": "#8dc21f", "type": "color", "usage": "주요 버튼·진행바·선택 강조 배경", "note": "이 색 위에는 반드시 brand.onPrimary(#172403)를 사용. 흰 글씨 금지(대비 2.13:1 미달)" },
+      "onPrimary":    { "value": "#172403", "type": "color", "usage": "primary 배경 위 글씨·아이콘", "contrastOnPrimary": "7.65:1 (AA 통과)" },
+      "primaryText":  { "value": "#5a7d14", "type": "color", "usage": "흰 배경 위 연두 글씨·아이콘·링크", "contrastOnSurface": "4.80:1 (AA 통과)" },
+      "primaryDeep":  { "value": "#4d6b11", "type": "color", "usage": "강한 강조 텍스트·hover·active", "contrastOnSurface": "6.13:1 (AA 통과)" },
+      "primaryHover": { "value": "#7cab18", "type": "color", "usage": "primary 버튼 hover 배경" },
+      "primaryTint":  { "value": "#F4F9EB", "type": "color", "usage": "안내창·선택행·강조 영역의 연한 연두 배경" },
+      "primaryTint2": { "value": "#E9F2D6", "type": "color", "usage": "tint보다 한 단계 진한 강조 배경·선택 hover" }
+    },
+    "ink": {
+      "default": { "value": "#172403", "type": "color", "usage": "기본 본문 텍스트(올리브블랙)", "contrastOnSurface": "16.28:1" },
+      "sub":     { "value": "#5b6657", "type": "color", "usage": "보조 설명·캡션·placeholder(연두기운 회색)", "contrastOnSurface": "6.03:1" },
+      "muted":   { "value": "#8a9483", "type": "color", "usage": "비활성·약한 메타정보" },
+      "inverse": { "value": "#FFFFFF", "type": "color", "usage": "어두운 배경 위 텍스트" }
+    },
+    "surface": {
+      "page":     { "value": "#F7F8F5", "type": "color", "usage": "페이지 배경(아주 옅은 연두기운 회색)" },
+      "card":     { "value": "#FFFFFF", "type": "color", "usage": "카드·패널·입력영역 배경" },
+      "raised":   { "value": "#FFFFFF", "type": "color", "usage": "모달·드롭다운 배경(그림자와 함께)" },
+      "selected": { "value": "#F4F9EB", "type": "color", "usage": "선택된 행·항목 배경" }
+    },
+    "border": {
+      "default": { "value": "#E3E8DC", "type": "color", "usage": "표·카드·구분선(연두기운 중립 회색)" },
+      "strong":  { "value": "#CBD3BF", "type": "color", "usage": "강조 구분선·입력칸 테두리" },
+      "focus":   { "value": "#8dc21f", "type": "color", "usage": "포커스 링(2px outline)" }
+    },
+    "state": {
+      "success":     { "value": "#3a5a0d", "type": "color", "usage": "완료·성공 상태 텍스트/아이콘(브랜드와 동계열 딥그린)", "contrastOnSurface": "7.93:1" },
+      "successTint": { "value": "#EEF5DE", "type": "color", "usage": "완료 배지 배경" },
+      "warning":     { "value": "#7a3f00", "type": "color", "usage": "경고·미제출 텍스트", "contrastOnTint": "7.73:1" },
+      "warningTint": { "value": "#FFF6E9", "type": "color", "usage": "경고 배경" },
+      "danger":      { "value": "#8a1f1f", "type": "color", "usage": "오류·필수 누락 텍스트(절제해 사용)", "contrastOnTint": "8.05:1" },
+      "dangerTint":  { "value": "#FCEDED", "type": "color", "usage": "오류 배경" },
+      "info":        { "value": "#1f4d5b", "type": "color", "usage": "정보 안내 텍스트" },
+      "infoTint":    { "value": "#EAF3F6", "type": "color", "usage": "정보 안내 배경" }
+    },
+    "score": {
+      "_comment": "평가 5점 척도 색. 신호등(빨강~초록) 금지. 무채색 농담으로 차분하게 표현하고, 5점만 브랜드 연두로 살짝 긍정 강조.",
+      "s5": { "value": "#5a7d14", "type": "color", "usage": "5점(탁월) — 브랜드 연두 텍스트" },
+      "s4": { "value": "#3f4a36", "type": "color", "usage": "4점(우수)" },
+      "s3": { "value": "#5b6657", "type": "color", "usage": "3점(기대충족) — 중립" },
+      "s2": { "value": "#7a8270", "type": "color", "usage": "2점(향상 기대)" },
+      "s1": { "value": "#9aa291", "type": "color", "usage": "1점(성장 필요) — 약한 회색, 경고색 아님" },
+      "trackBg":  { "value": "#EDF0E8", "type": "color", "usage": "점수 막대 그래프 배경 트랙" },
+      "trackFill":{ "value": "#8dc21f", "type": "color", "usage": "점수 막대 채움" }
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "base": { "value": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif", "type": "fontFamily" },
+      "mono": { "value": "\"JetBrains Mono\", \"D2Coding\", ui-monospace, SFMono-Regular, Menlo, monospace", "type": "fontFamily", "usage": "점수·수치·코드" }
+    },
+    "fontWeight": {
+      "regular":  { "value": 400, "type": "fontWeight" },
+      "medium":   { "value": 500, "type": "fontWeight" },
+      "semibold": { "value": 600, "type": "fontWeight" },
+      "bold":     { "value": 700, "type": "fontWeight" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "-0.02em", "type": "dimension", "usage": "제목" },
+      "base":  { "value": "-0.01em", "type": "dimension", "usage": "본문(한글 가독성)" }
+    },
+    "scale": {
+      "display": { "value": { "fontSize": "28px", "lineHeight": "36px", "fontWeight": 700, "letterSpacing": "-0.02em" }, "type": "typography", "usage": "페이지 대제목" },
+      "h1":      { "value": { "fontSize": "22px", "lineHeight": "30px", "fontWeight": 700, "letterSpacing": "-0.02em" }, "type": "typography", "usage": "섹션 제목" },
+      "h2":      { "value": { "fontSize": "18px", "lineHeight": "26px", "fontWeight": 600, "letterSpacing": "-0.01em" }, "type": "typography", "usage": "카드·역량군 제목" },
+      "h3":      { "value": { "fontSize": "16px", "lineHeight": "24px", "fontWeight": 600, "letterSpacing": "-0.01em" }, "type": "typography", "usage": "차원명·소제목" },
+      "body":    { "value": { "fontSize": "14px", "lineHeight": "22px", "fontWeight": 400, "letterSpacing": "-0.01em" }, "type": "typography", "usage": "기본 본문·행동기준" },
+      "bodySm":  { "value": { "fontSize": "13px", "lineHeight": "20px", "fontWeight": 400 }, "type": "typography", "usage": "표 셀·보조" },
+      "caption": { "value": { "fontSize": "12px", "lineHeight": "18px", "fontWeight": 400 }, "type": "typography", "usage": "캡션·안내·메타" },
+      "score":   { "value": { "fontSize": "20px", "lineHeight": "24px", "fontWeight": 700 }, "type": "typography", "usage": "점수 숫자(mono 권장)" }
+    }
+  },
+
+  "spacing": {
+    "_comment": "4px 기준 스케일. 업무 앱은 여백을 과하지 않게 — iOS보다 촘촘하게.",
+    "0":  { "value": "0px", "type": "dimension" },
+    "1":  { "value": "4px", "type": "dimension" },
+    "2":  { "value": "8px", "type": "dimension" },
+    "3":  { "value": "12px", "type": "dimension" },
+    "4":  { "value": "16px", "type": "dimension" },
+    "5":  { "value": "20px", "type": "dimension" },
+    "6":  { "value": "24px", "type": "dimension" },
+    "8":  { "value": "32px", "type": "dimension" },
+    "10": { "value": "40px", "type": "dimension" },
+    "12": { "value": "48px", "type": "dimension" },
+    "16": { "value": "64px", "type": "dimension" }
+  },
+
+  "radius": {
+    "_comment": "iOS의 과한 둥근 모서리 대신 중간값. 절제된 SaaS 톤.",
+    "sm":   { "value": "6px",  "type": "dimension", "usage": "배지·태그·입력칸" },
+    "md":   { "value": "10px", "type": "dimension", "usage": "버튼·카드 기본" },
+    "lg":   { "value": "14px", "type": "dimension", "usage": "큰 카드·패널" },
+    "xl":   { "value": "20px", "type": "dimension", "usage": "모달" },
+    "full": { "value": "9999px", "type": "dimension", "usage": "원형 아바타·진행 원" }
+  },
+
+  "shadow": {
+    "_comment": "그림자는 옅게. 색을 올리브블랙 기반으로 두어 브랜드와 어울리게.",
+    "xs":   { "value": "0 1px 2px rgba(23,36,3,0.06)", "type": "shadow", "usage": "입력칸·작은 요소" },
+    "sm":   { "value": "0 1px 3px rgba(23,36,3,0.08), 0 1px 2px rgba(23,36,3,0.04)", "type": "shadow", "usage": "카드" },
+    "md":   { "value": "0 4px 12px rgba(23,36,3,0.10)", "type": "shadow", "usage": "드롭다운·팝오버" },
+    "lg":   { "value": "0 8px 24px rgba(23,36,3,0.14)", "type": "shadow", "usage": "모달" },
+    "focus":{ "value": "0 0 0 3px rgba(141,194,31,0.35)", "type": "shadow", "usage": "포커스 링" }
+  },
+
+  "component": {
+    "button": {
+      "primary": {
+        "background": "{color.brand.primary}",
+        "backgroundHover": "{color.brand.primaryHover}",
+        "text": "{color.brand.onPrimary}",
+        "radius": "{radius.md}",
+        "paddingY": "{spacing.3}",
+        "paddingX": "{spacing.5}",
+        "fontWeight": 600,
+        "note": "주요 액션(제출·저장·다음). 흰 글씨 금지, onPrimary(#172403) 사용."
+      },
+      "secondary": {
+        "background": "{color.surface.card}",
+        "text": "{color.brand.primaryDeep}",
+        "border": "1px solid {color.border.strong}",
+        "radius": "{radius.md}",
+        "note": "보조 액션(취소·임시저장)"
+      },
+      "ghost": {
+        "background": "transparent",
+        "text": "{color.ink.default}",
+        "hoverBackground": "{color.brand.primaryTint}",
+        "note": "목록 내 약한 액션"
+      }
+    },
+    "input": {
+      "background": "{color.surface.card}",
+      "border": "1px solid {color.border.strong}",
+      "borderFocus": "{color.border.focus}",
+      "radius": "{radius.sm}",
+      "text": "{color.ink.default}",
+      "placeholder": "{color.ink.sub}",
+      "paddingY": "{spacing.2}",
+      "paddingX": "{spacing.3}",
+      "focusRing": "{shadow.focus}"
+    },
+    "card": {
+      "background": "{color.surface.card}",
+      "border": "1px solid {color.border.default}",
+      "radius": "{radius.lg}",
+      "padding": "{spacing.5}",
+      "shadow": "{shadow.sm}"
+    },
+    "badge": {
+      "complete":  { "background": "{color.state.successTint}", "text": "{color.state.success}", "label": "완료" },
+      "inProgress":{ "background": "{color.brand.primaryTint}", "text": "{color.brand.primaryDeep}", "label": "작성중" },
+      "notStarted":{ "background": "#EFF1EC", "text": "{color.ink.sub}", "label": "미시작" },
+      "missing":   { "background": "{color.state.warningTint}", "text": "{color.state.warning}", "label": "필수 누락" }
+    },
+    "progressBar": {
+      "track": "{color.score.trackBg}",
+      "fill": "{color.brand.primary}",
+      "height": "8px",
+      "radius": "{radius.full}"
+    },
+    "scoreSelector": {
+      "_comment": "5점 선택 칩. 선택 시 brand.primaryTint 배경 + primaryDeep 텍스트. 미선택은 중립.",
+      "default":  { "background": "{color.surface.card}", "border": "1px solid {color.border.strong}", "text": "{color.ink.sub}" },
+      "selected": { "background": "{color.brand.primaryTint}", "border": "1.5px solid {color.brand.primary}", "text": "{color.brand.primaryDeep}", "fontWeight": 700 },
+      "radius": "{radius.sm}"
+    },
+    "table": {
+      "headerBackground": "{color.brand.primaryTint}",
+      "headerText": "{color.ink.default}",
+      "rowBorder": "1px solid {color.border.default}",
+      "rowHover": "{color.surface.selected}",
+      "stripe": "#FBFCF9"
+    },
+    "accordion": {
+      "_comment": "역량군 단위 접기/펼치기. 평가 수행 화면의 핵심 패턴(점진적 공개).",
+      "headerBackground": "{color.surface.card}",
+      "headerText": "{color.ink.default}",
+      "borderRadius": "{radius.lg}",
+      "dividerColor": "{color.border.default}"
+    }
+  },
+
+  "grade": {
+    "_comment": "S~D 등급 배지. 알파벳은 유지, 색은 무채색+연두 강조로 차분하게. 라벨은 순화안(향상 기대/성장 필요).",
+    "S": { "label": "탁월",      "background": "{color.brand.primaryTint2}", "text": "{color.brand.primaryDeep}" },
+    "A": { "label": "우수",      "background": "{color.brand.primaryTint}",  "text": "{color.brand.primaryText}" },
+    "B": { "label": "기대충족",  "background": "#EFF1EC",                     "text": "{color.ink.default}" },
+    "C": { "label": "향상 기대", "background": "#F0F1ED",                     "text": "{color.ink.sub}" },
+    "D": { "label": "성장 필요", "background": "#EDEEEA",                     "text": "{color.ink.muted}" }
+  },
+
+  "breakpoint": {
+    "sm": { "value": "640px", "type": "dimension" },
+    "md": { "value": "768px", "type": "dimension" },
+    "lg": { "value": "1024px", "type": "dimension" },
+    "xl": { "value": "1280px", "type": "dimension" }
+  },
+
+  "accessibility": {
+    "minContrastBodyText": "4.5:1 (WCAG AA)",
+    "minContrastLargeUI": "3:1",
+    "focusVisible": "모든 인터랙티브 요소에 2px 포커스 링(border.focus) 필수",
+    "verifiedCombos": [
+      { "pair": "ink.default on surface.card", "ratio": "16.28:1" },
+      { "pair": "ink.sub on surface.card", "ratio": "6.03:1" },
+      { "pair": "brand.onPrimary on brand.primary", "ratio": "7.65:1" },
+      { "pair": "brand.primaryText on surface.card", "ratio": "4.80:1" },
+      { "pair": "brand.primaryDeep on surface.card", "ratio": "6.13:1" },
+      { "pair": "state.success on surface.card", "ratio": "7.93:1" }
+    ],
+    "forbidden": [
+      "brand.primary(#8dc21f) 배경 위 흰색(#FFFFFF) 글씨 — 대비 2.13:1로 AA 미달",
+      "brand.primary(#8dc21f)를 흰 배경 위 본문 텍스트 색으로 사용 — 대비 부족(텍스트는 primaryText/primaryDeep 사용)",
+      "평가 점수에 빨강~초록 신호등 색 사용 — 1점이 경고로 보여 거부감 유발"
+    ]
+  },
+
+  "tailwindMapping": {
+    "_comment": "Tailwind 적용 시 theme.extend.colors 참고 매핑. CSS 변수로 빼서 쓰는 것을 권장.",
+    "colors": {
+      "primary":      "#8dc21f",
+      "primary-hover":"#7cab18",
+      "primary-text": "#5a7d14",
+      "primary-deep": "#4d6b11",
+      "on-primary":   "#172403",
+      "tint":         "#F4F9EB",
+      "tint-2":       "#E9F2D6",
+      "ink":          "#172403",
+      "ink-sub":      "#5b6657",
+      "ink-muted":    "#8a9483",
+      "page":         "#F7F8F5",
+      "line":         "#E3E8DC",
+      "line-strong":  "#CBD3BF"
+    },
+    "fontFamily": {
+      "sans": ["Pretendard Variable", "Pretendard", "system-ui", "sans-serif"]
+    },
+    "borderRadius": { "sm": "6px", "md": "10px", "lg": "14px", "xl": "20px" }
+  }
+}
